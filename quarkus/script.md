@@ -78,4 +78,4 @@ Developers won't have to install the right JVM and GraalVM and change their defa
 
 You can talk about the fact that this environment is very close to the production but also to your CI and take the example of a CI build based on the multistage docker https://github.com/sunix/che-quarkus-demo/blob/master/Dockerfile. and https://quay.io/repository/sunix/quarkus-demo-app?tab=builds
 
-Latest slide deck: https://docs.google.com/presentation/d/12C1TR104PPRftTrzYEn9anI_VOkEYLowMlQCzRJsVYA/edit?usp=sharing
+Latest slide deck: https://docs.google.com/presentation/d/12DvTtEUT96t91t52MnFCs4Ar0XDj9XlpS8uM73n8C6Y/edit?usp=sharing
