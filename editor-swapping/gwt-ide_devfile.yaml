@@ -1,0 +1,10 @@
+specVersion: 0.0.1
+name: editors_gwt-ide
+projects:
+  - name: che
+    source:
+      type: git
+      location: 'https://github.com/che-incubator/che-demos.git'
+components:
+  - type: cheEditor
+    id: eclipse/che-gwt-ide/7.0.0-beta-4.0
