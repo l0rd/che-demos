@@ -181,6 +181,11 @@ components:
   - type: chePlugin
     alias: typescript-ls
     id: che-incubator/typescript/1.30.2
+  - type: chePlugin
+    id: redhat/vscode-yaml/0.4.0
+  - type: chePlugin
+    alias: k8s-tooling
+    reference: http://che-plugin-registry-che.192.168.64.54.nip.io/v3/plugins/ms-kubernetes-tools/vscode-kubernetes-tools/1.0.0/meta.yaml
 commands:
   - name: run
     actions:

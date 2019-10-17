@@ -1,49 +1,38 @@
 # Devfile Demo
 
 ## Introduction
+
 Devfile is a new format for defining a development environment, aka Che Workspace.
 It's a straightforward and declarative format and `chectl` provides easy way to start using it.
 `chectl` is able to generate devfile for live application. Then generated devfile can be put into
 sources code repository to make it reusable on any Che installation.
 
-## Setup
+## Setup (before running the demo)
+
 1. Create minishift/minikube VM
     - Demo is tested with minishift VM with 8GB memory allocated
 2. Deploy Che Server to local cluster
-    - `chectl server:start [-p minishift]`
-    - After start, additional configuration:
-      - `CHE_WORKSPACE_SIDECAR_IMAGE__PULL__POLICY=IfNotPresent`
-    - Start custom plugin registry from `sleshchenko/che-plugin-registry:devfile-demo` and configure Che Server to use it
 
-  *Alternatively:*
-```bash
-  # Set tested Che Server image
-  export CHE_IMAGE_REPO=sleshchenko/che-server
-  export CHE_IMAGE_TAG=devfile-demo
+      ```bash
+      chectl server:start [-p minishift]
+      #export EDITOR=vim
+      kubectl edit -n che cm/che # add CHE_WORKSPACE_SIDECAR_IMAGE__PULL__POLICY: "IfNotPresent"
+      kubectl scale --replicas=0 deployment/che
+      kubectl scale --replicas=1 deployment/che
+      ```
 
-  export CHE_WORKSPACE_SIDECAR_IMAGE__PULL__POLICY=IfNotPresent
-
-  # custom plugin registry has cached binaries for typescript plugin and tagged version for Che Theia
-  # and it saves ~1 minute on workspace start
-  export PLUGIN_REGISTRY_IMAGE="sleshchenko/che-plugin-registry"
-  export PLUGIN_REGISTRY_IMAGE_TAG="devfile-demo"
-
-  # Note the particular version of `deploy_che.sh` should be used
-  # and it depends on Che Server image that is used.
-  # With `sleshchenko/che-server:devfile-demo` the following version should be used
-  # https://github.com/eclipse/che/blob/f02735aa48c34ebe89b54e7f63cf84f85ea8dff3/deploy/openshift/deploy_che.sh
-  ./deploy_che.sh --deploy-che-plugin-registry --project=che
-```
 3. Modify `deploy_k8s.yaml` to match VM's IP address in ingress:
-    - `sed -i "s/192.168.99.100/$(minishift ip)/g" ./deploy_k8s.yaml`
+    - `sed -i "s/192.168.99.100/$(minikube ip)/g" ./deploy_k8s.yaml`
 4. Deploy NodeJS application using [deploy_k8s.yaml](deploy_k8s.yaml)
-   ```bash
-     oc new-project nodejs-app
-     oc apply -f deploy_k8s.yaml
-   ```
-   And then check that application is available on http://nodejs.$(minishift ip).nip.io/
-5. Install tested binaries of `chectl` https://drive.google.com/drive/folders/1zz8mNfYl-cPmVUP0SJVd4tf34ePdb9ed?usp=sharing
-6. Run through demo once or cache all images for a smoother experience
+
+  ```bash
+  kubectl create namespace nodejs-app
+  kubectl apply -n nodejs-app -f deploy_k8s.yaml
+  ```
+
+   And then check that application is available on `http://nodejs.$(minikube ip).nip.io/`
+6. Install tested binaries of `chectl` https://drive.google.com/drive/folders/1zz8mNfYl-cPmVUP0SJVd4tf34ePdb9ed?usp=sharing
+7. Run through demo once or cache all images for a smoother experience
 
 ## Script (timing ~15 minutes)
 

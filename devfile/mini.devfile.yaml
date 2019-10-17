@@ -1,0 +1,12 @@
+specVersion: 0.0.1
+name: chectl-generated
+projects:
+  - source:
+      type: git
+      location: 'https://github.com/sleshchenko/NodeJS-Sample-App.git'
+    name: NodeJS-Sample-App.git
+components:
+  - type: chePlugin
+    alias: typescript-ls
+    id: che-incubator/typescript/1.30.2
+
